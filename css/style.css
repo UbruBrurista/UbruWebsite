@@ -49,7 +49,7 @@ nav a:visited {
 nav a:hover {
   color: lightblue;
 }
-  
+
 body {
   color: #878787;
   margin: 0;
@@ -61,7 +61,7 @@ h2 {
   font-family: 'Oxygen', sans-serif;
 }
 
-h1 {  
+h1 {
   font-size: 10rem; /* 90px/16px  */
   color: rgba(255, 255, 255, 1);
   /*text-transform: uppercase;*/
@@ -156,7 +156,7 @@ a:active {
 
 .intro {
   font-size: 1.25em; /* 20px/16px */
-  line-height: 1.6;  
+  line-height: 1.6;
 }
 
 .primary-content,
@@ -248,7 +248,7 @@ a:active {
 
 /* Layout Styles ------------------ */
 
-.primary-content, 
+.primary-content,
 .secondary-content {
   width: 75%;
   padding-left: 25px;
@@ -264,6 +264,9 @@ a:active {
   padding-left: 40%;
 }
 
+.logo {
+  font-size: 5rem;
+}
 
 .highlight1 {
   color: lightblue;
@@ -562,7 +565,7 @@ nav #signup a {*/
 /*nav*/
 #login-content {
   box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
-  width: 100%;  
+  width: 100%;
   padding: 20px;
   color: white;
   /*margin-top:20px;*/
@@ -578,7 +581,7 @@ nav #signup a {*/
 }
 
 
-/*.signup #username, 
+/*.signup #username,
 .signup #password {
   text-align: right;
 }*/
@@ -614,7 +617,7 @@ nav #signup a {*/
   margin: 10px 0 0 0;
 }
 
-#login #submit {    
+#login #submit {
   background-color: blue;
   text-shadow: 0 1px 0 rgba(0,0,0,.5);
   float: center;
@@ -627,13 +630,13 @@ nav #signup a {*/
   }
 
 #login #submit:hover,
-#login #submit:focus {    
+#login #submit:focus {
   background-color: teal;
-} 
+}
 
-#login #submit:active {   
+#login #submit:active {
   outline: none;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;   
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
 }
 
 #login #submit::-moz-focus-inner {
@@ -683,7 +686,7 @@ body.modal-open {
 
 @media (max-width: 1024px) {
  /* body {
-     color:red; 
+     color:red;
   }*/
   .primary-content,
   .secondary-content {
@@ -702,14 +705,14 @@ body.modal-open {
 
   /*.scrollable {
   width: 500px;
-  overflow: scroll;  
+  overflow: scroll;
 }*/
 
 }
 
 @media (max-width: 768px) {
   /*body {
-     color:purple; 
+     color:purple;
   }*/
   .primary-content,
   .secondary-content {
@@ -724,7 +727,7 @@ body.modal-open {
     padding-left: 10%;
 }
 
-  .main-header, 
+  .main-header,
   .contact-header {
     max-height: 380px;
     padding: 50px 25px 0;
@@ -746,7 +749,7 @@ body.modal-open {
 }
 
 
-  h1, .logo {
+  h1 {
     font-size: 5rem;
     line-height: 1;
   }
@@ -788,7 +791,7 @@ body.modal-open {
     padding: 0px;
   }
 
-  .signup #username, 
+  .signup #username,
   .signup #password,
   .login #username,
   .login #password {
@@ -812,7 +815,7 @@ body.modal-open {
 }
 
 /*box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
-  width: 100%;  
+  width: 100%;
   padding: 20px;
   margin-top:20px;
   background-color: #538fbe;

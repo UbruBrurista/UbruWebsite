@@ -44,7 +44,7 @@ function populateCallback(responseText) {
 
 function populateTable(){
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() { 
+    xmlHttp.onreadystatechange = function() {
 
       console.log(xmlHttp);
 
@@ -54,9 +54,9 @@ function populateTable(){
 
     console.log("populateTable");
 
-    var theUrl = 'http://buakpsi.com/ubru/drinks/uuid/12345';
-    
-    xmlHttp.open("GET", theUrl, false); // true for asynchronous 
+    var theUrl = 'http://ubru.us-east-1.elasticbeanstalk.com/drinks/phone/911';
+
+    xmlHttp.open("GET", theUrl, false); // true for asynchronous
     xmlHttp.send(null);
 
 
@@ -65,7 +65,7 @@ function populateTable(){
 function sendNewBrew(){
 
     console.log("sendNewBrew");
-    
+
     var ES = document.getElementById('ES').checked;
     var AM = document.getElementById('AM').checked;
     var name = document.getElementById('drinkname').value;
@@ -76,13 +76,13 @@ function sendNewBrew(){
 
     if(ES == true)
       type = 'ES';
-    else 
+    else
       type = 'AM';
 
     var xmlHttp = new XMLHttpRequest();
     var theUrl = 'http://buakpsi.com/ubru/drinks/';
-    
-    xmlHttp.open("POST", theUrl, true); // true for asynchronous 
+
+    xmlHttp.open("POST", theUrl, true); // true for asynchronous
     xmlHttp.setRequestHeader('Content-Type', 'application/json');
     xmlHttp.send(JSON.stringify({
       uuid: "123456",
@@ -93,5 +93,3 @@ function sendNewBrew(){
       type: type
     }));
 }
-
-

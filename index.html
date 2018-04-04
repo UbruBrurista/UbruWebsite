@@ -1,65 +1,144 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>ubru</title>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <meta name="viewport" content="width=device-width">
-  </head>
-  <body> 
+ <head>
+   <title>ubru</title>
+   <link rel="stylesheet" href="css/style.css">
+   <meta name="viewport" content="width=device-width">
+   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css">
+   <style>
+     body { padding: 20px 20px 0 20px; }
+     .center {
+       text-align: center;
+       width: 100%;
+     }
 
-    <header id="top" class="main-header">
-   	  <nav>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="mybrews.html">My Brews</a></li>
-          <li><a href="about.html">About</a></li>
-          </ul>
-      	</nav>
-      <div class="title">
-      <h2 id="logo">Welcome to</h2>
-      <h1 id="logo">ubru</h1>
-  	  <a class='scrollArrow' href="#"><img class="arrow" src="img/arrow.svg" alt="Down arrow"></a></div>
-      <!-- <img class="arrow" src="img/arrow.svg" alt="Down arrow"> -->
-    </header>
-    	
-		<div class="primary-content t-border" id='scrollTo'>
-      <h2>Login</h2>
-      <form class="form-container">
-        <!-- <div class="form-title"><h2>Login</h2></div> -->
-        <div class="form-title">Email</div>
-        <input class="form-field" type="text" name="email" /><br />
-        <div class="form-title">password</div>
-        <input class="form-field" type="text" name="password" /><br />
-        <div class="submit-container">
-        <input class="submit-button" type="submit" value="Submit" />
-        <label><input type="checkbox" checked="checked"> keep me signed in</label>
-        </div>
-      </form>
+   </style>
+ </head>
 
-        <h2>Sign up</h2>
-        <form class="form-container">
-        <!-- <div class="form-title"><h2>Login</h2></div> -->
-        <div class="form-title">Email</div>
-        <input class="form-field" type="text" name="email" /><br />
-        <div class="form-title">password</div>
-        <input class="form-field" type="text" name="password" /><br />
-        <div class="submit-container">
-        <input class="submit-button" type="submit" value="Submit" />
-        </div>
-      </form>
+ <body>
 
-      <a class="callout" href="#" id="locationsButton">Find your nearest Brurista</a>
-		</div><!-- End .primary-content -->
-    
-		<footer class="main-footer">
-			<a href="http://twitter.com/vroni92"><img src="img/twitter-wrap.png" alt="Twitter Logo" class="social-icon"></a>
-        <a href="http://facebook.com/v.herzog92"><img src="img/facebook-wrap.png" alt="Facebook Logo" class="social-icon"></a>
-        <p>&copy; 2018 ubru.</p>
-			<a class="scrollToTop" href="#">Back to top &raquo;</a>
-		</footer>
+   <div id="root">
 
-		<script type="text/javascript" src="js/java.js"></script>
-  </body>
+     <login-modal name="Log In" v-if="showModalLogin" @close="showModalLogin = false" @login="loggedIn = true; showModalLogin = false"></login-modal>
+
+     <signup-modal name="Sign Up" v-if="showModalSignup" @close="showModalSignup = false" @login="loggedIn = true; showModalSignup = false"></signup-modal>
+
+     <newbrew-modal name="New Brew" v-if="showModalNewbrew" @close="showModalNewbrew = false" @create="showModalNewbrew = false"></newbrew-modal>
+
+     <tabs>
+       <tab name="Ubru" :selected="true">
+         <welcome name="ubru"></welcome>
+       </tab>
+
+       <tab v-if="loggedIn" name="Your Brews" :selected="false" @click="populateTable">
+         <button class="button is-large is-primary" @click="populateTable">Reload drinks</button>
+         <table class="table">
+             <thead>
+               <tr>
+                 <th>Brew Name</th>
+                 <th>Pressure</th>
+                 <th>Temperature</th>
+                 <th>Time</th>
+                 <th>Type</th>
+                 <th>Customize</th>
+               </tr>
+             </thead>
+             <tbody id="brewList">
+             </tbody>
+             </tr>
+           </table>
+
+       </tab>
+
+       <tab v-if="loggedIn" name="New Brew" :selected="false">
+         <div class="modal-card">
+           <header class="modal-card-head">
+             <p class="modal-card-title">Create your new drink</p>
+           </header>
+           <section class="modal-card-body">
+             <div class="field">
+               <label class="label">Brew Name</label>
+               <div class="control">
+                 <input id="drinkname" class="input is-large" type="text" ref="drinkname" placeholder="Name of your brew">
+               </div>
+             </div>
+
+             <div class="field">
+               <label class="label">Temperature (C)</label>
+               <div class="control">
+                 <div class="select is-large">
+                   <select id="temperature">
+                     <option>80</option>
+                     <option>85</option>
+                     <option>90</option>
+                   </select>
+                 </div>
+               </div>
+             </div>
+
+             <div class="field">
+               <label class="label">Drink Size</label>
+               <div class="control">
+                 <div class="select is-large">
+                   <select id="size">
+                     <option>Small</option>
+                     <option>Medium</option>
+                     <option>Large</option>
+                   </select>
+                 </div>
+               </div>
+             </div>
+            <br></br>
+             <div class="field">
+               <div class="control is-large radios">
+                 <label class="radio">
+                   <input id="ES" type="radio" name="question">
+                   Espresso
+                 </label>
+                 <label class="radio">
+                   <input id="AM" type="radio" name="question">
+                   Americano
+                 </label>
+               </div>
+             </div>
+           </section>
+           <footer class="modal-card-foot">
+           <div class="field is-grouped">
+             <div class="control">
+               <button class="button is-link is-large" @click="sendNewBrew">Submit</button>
+             </div>
+             <!-- <div class="control">
+               <button class="button is-text" @click="$emit('close')">Cancel</button>
+             </div> -->
+           </div>
+           </footer>
+         </div>
+
+
+       </tab>
+
+       <tab name="How It Works" :selected="false">
+         <div class="main-header">
+           <h2 class="logo">How it works...</h2>
+         </div>
+       </tab>
+
+
+
+       <tab v-if="!loggedIn" name="Sign In" :selected="false">
+         <div class="columns">
+             <a class="button is-large is-link" @click="showModalLogin = true"><div class="column">Log in</div></a>
+             <a class="button is-large is-primary" @click="showModalSignup = true"><div class="column">Sign up</div></a>
+         </div>
+       </tab>
+     </tabs>
+   </div>
+
+   <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+   <script src="js/main.js"></script>
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+   <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+ </body>
+
 </html>
