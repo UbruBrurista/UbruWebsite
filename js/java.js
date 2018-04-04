@@ -1,6 +1,7 @@
 
   	/* scroll to a div with the ID "scrollTo" by clicking a link with the class "scrollArrow" */
 	$('.scrollArrow').click( function() {
+			console.log("donw...");
     	$('html, body').animate({
           scrollTop: $('#scrollTo').offset().top
      	}, 600);

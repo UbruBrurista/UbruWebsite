@@ -320,6 +320,7 @@ var app = new Vue({
       var time = document.getElementById('size').value;
       var type = null;
       var pressure = "80";
+      var phoneN = '911';
 
       if(ES == true)
         type = 'ES';
@@ -329,7 +330,7 @@ var app = new Vue({
       //alert("name is: "+name+". type is: " + type+". temp is: "+ temp+". time is: "+time);
 
       var xmlHttp = new XMLHttpRequest();
-      var theUrl = 'http://ubru.us-east-1.elasticbeanstalk.com/drinks/phone/911';
+      var theUrl = 'http://ubru.us-east-1.elasticbeanstalk.com/drinks/';
 
 
       // ERROR: No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'null' is therefore not allowed access. The response had HTTP status code 500.
@@ -338,6 +339,7 @@ var app = new Vue({
       xmlHttp.setRequestHeader('Content-Type', 'application/json');
       xmlHttp.send(JSON.stringify({
         name: name,
+        number: phoneN,
         brew_type: type,
         brew_temp: parseInt(temp),
         brew_size: size

@@ -27,7 +27,15 @@
 
      <tabs>
        <tab name="Ubru" :selected="true">
-         <welcome name="ubru"></welcome>
+         <!-- <welcome name="ubru"></welcome> -->
+         <section class="hero is-info is-fullheight">
+          <div class="hero-body">
+            <div class="container">
+              <h2 id="logo" class="logo">Welcome to</h2>
+              <h1 class="logo">ubru</h1>
+            </div>
+          </div>
+        </section>
        </tab>
 
        <tab v-if="loggedIn" name="Your Brews" :selected="false" @click="populateTable">
@@ -118,9 +126,52 @@
        </tab>
 
        <tab name="How It Works" :selected="false">
-         <div class="main-header">
+         <!-- <div class="main-header">
            <h2 class="logo">How it works...</h2>
-         </div>
+         </div> -->
+
+         <section class="hero is-info is-primary">
+          <div class="hero-body">
+            <div class="container">
+              <h1 class="title">
+                How does it work?
+              </h1>
+              <h2 class="subtitle">
+                Learn how to have your favorite brew, wherever you go!
+              </h2>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="container">
+            <h1 class="title">Sign in</h1>
+            <h2 class="subtitle">
+              First, make a <strong>ubru</strong> account and sign in!
+            </h2>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="container">
+            <h1 class="title">Create your first drink</h1>
+            <h2 class="subtitle">
+              Go to the <strong>New Brew</strong> tab. Name your drink and customize the temperature and size!
+            </h2>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="container">
+            <h1 class="title">Find a nearby <strong>Brurista</strong></h1>
+            <h2 class="subtitle">
+              <button class="button is-link is-large">Locations</button>
+            </h2>
+          </div>
+        </section>
+
+
+
        </tab>
 
 
@@ -138,6 +189,16 @@
    <script src="js/main.js"></script>
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+   <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <p>
+          <strong>ubru</strong> brought to you by <a href="http://www.bu.edu/eng/departments/ece/undergraduate/ece-day-2017/">Boston University ECE Senior Design Team 12</a>.
+        </p>
+      </div>
+    </div>
+  </footer>
 
  </body>
 
