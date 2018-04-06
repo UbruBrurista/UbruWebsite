@@ -15,17 +15,6 @@ Vue.component('task-list', {
   }
 });
 
-Vue.component('welcome', {
-  template: `
-    <div class="main-header">
-      <h2 id="logo" class="logo">Welcome to</h2>
-      <h1 class="logo"> {{ name }}</h1>
-    </div>
-  `,
-  props: {
-    'name' : {required: true}
-  }
-})
 
 Vue.component('message', {
   props: ['title', 'body'],
@@ -49,7 +38,7 @@ Vue.component('login-modal', {
       <button class="modal-close is-large"  @click="$emit('close')"></button>
     </header>
     <section class="modal-card-body">
-        <input class="input is-rounded" type="text" placeholder="Phone number">
+        <input id="phone-number" class="input is-rounded" type="text" placeholder="Phone number">
         </br></br>
         <input class="input is-rounded" type="text" placeholder="Password">
         </br>
@@ -58,10 +47,16 @@ Vue.component('login-modal', {
         </div>
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-success" @click="$emit('login')">Log In</button>
+      <button class="button is-success" @click="verifyLogin(); $emit('login')">Log In</button>
     </footer>
   </div>
-</div>`
+</div>`,
+
+  methods : {
+    verifyLogin : function() {
+      this.$parent.$data.phoneNumber = document.getElementById('phone-number').value;
+    }
+  }
 })
 
 Vue.component('signup-modal', {
@@ -86,133 +81,6 @@ Vue.component('signup-modal', {
 </div>`
 })
 
-// Vue.component('newbrew-modal', {
-//   template:
-//   `<div class="modal is-active">
-//   <div class="modal-background"></div>
-//   <div class="modal-card">
-//     <header class="modal-card-head">
-//       <p class="modal-card-title">Create your new drink</p>
-//     </header>
-//     <section class="modal-card-body">
-//       <div class="field">
-//         <label class="label">Brew Name</label>
-//         <div class="control">
-//           <input class="input" type="text" ref="drinkname" placeholder="Name of your brew">
-//         </div>
-//       </div>
-//
-//       <div class="field">
-//         <label class="label">Pressure (bar)</label>
-//         <div class="control">
-//           <div class="select">
-//             <select>
-//               <option>8</option>
-//               <option>9</option>
-//               <option>10</option>
-//               <option>11</option>
-//               <option>12</option>
-//             </select>
-//           </div>
-//         </div>
-//       </div>
-//
-//       <div class="field">
-//         <label class="label">Temperature (C)</label>
-//         <div class="control">
-//           <div class="select">
-//             <select>
-//               <option>80</option>
-//               <option>85</option>
-//               <option>90</option>
-//               <option>95</option>
-//               <option>100</option>
-//             </select>
-//           </div>
-//         </div>
-//       </div>
-//
-//       <div class="field">
-//         <label class="label">Time (sec)</label>
-//         <div class="control">
-//           <div class="select">
-//             <select>
-//               <option>15</option>
-//               <option>20</option>
-//               <option>25</option>
-//               <option>30</option>
-//               <option>35</option>
-//             </select>
-//           </div>
-//         </div>
-//       </div>
-//
-//       <div class="field">
-//         <div class="control">
-//           <label class="radio">
-//             <input type="radio" name="question">
-//             Espresso
-//           </label>
-//           <label class="radio">
-//             <input type="radio" name="question">
-//             Americano
-//           </label>
-//         </div>
-//       </div>
-//     </section>
-//     <footer class="modal-card-foot">
-//     <div class="field is-grouped">
-//       <div class="control">
-//         <button class="button is-link" @click="sendNewBrew(); $emit('create')">Submit</button>
-//       </div>
-//       <div class="control">
-//         <button class="button is-text" @click="$emit('close')">Cancel</button>
-//       </div>
-//     </div>
-//     </footer>
-//   </div>
-// </div>`,
-//
-//   data() {
-//     return {
-//       drinkname:
-//     };
-//   },
-//   methods: {
-//     sendNewBrew(){
-//
-//         console.log("sendNewBrew");
-//
-//         var ES = document.getElementById('ES').checked;
-//         var AM = document.getElementById('AM').checked;
-//         var name = document.getElementById('drinkname').value;
-//         var temp = document.getElementById('temperature').value;
-//         var pressure = document.getElementById('pressure').value;
-//         var time = document.getElementById('time').value;
-//         var type = null;
-//
-//         if(ES == true)
-//           type = 'ES';
-//         else
-//           type = 'AM';
-//
-//         var xmlHttp = new XMLHttpRequest();
-//         var theUrl = 'http://buakpsi.com/ubru/drinks/';
-//
-//         xmlHttp.open("POST", theUrl, true); // true for asynchronous
-//         xmlHttp.setRequestHeader('Content-Type', 'application/json');
-//         xmlHttp.send(JSON.stringify({
-//           uuid: "123456",
-//           name: name,
-//           temp: parseInt(temp),
-//           pressure: parseInt(pressure),
-//           time: parseInt(time),
-//           type: type
-//         }));
-//
-//     }
-//   }
-// })
 
 Vue.component('tabs', {
   template: `
@@ -310,6 +178,49 @@ var app = new Vue({
 
 
     },
+    populateTable: function(){
+        var xmlHttp = new XMLHttpRequest();
+        console.log('xmlHttp!!!!: ');
+        console.log(xmlHttp);
+        console.log(xmlHttp.readyState + ', '+ xmlHttp.status);
+        console.log(xmlHttp.responseText);
+
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+          console.log('IN THE IF!!!');
+          var brews = JSON.parse(xmlHttp.responseText);
+          console.log('BREWs: ' + brews);
+          console.log(brews.length);
+
+          var myTable = document.getElementById('brewList');
+
+          for (i = 0; i < brews.length; i++) {
+            var tr = document.createElement('TR');
+            var x = tr.insertCell(0);
+            x = tr.insertCell(1);
+            x = tr.insertCell(2);
+            x = tr.insertCell(3);
+            x = tr.insertCell(4);
+            x = tr.insertCell(5);
+
+            tr.cells[0].innerHTML = brews[i]['name'];
+            tr.cells[1].innerHTML = brews[i]['brew_temp'];
+            tr.cells[2].innerHTML = brews[i]['brew_size'];
+            tr.cells[3].innerHTML = brews[i]['brew_type'];
+            tr.cells[4].innerHTML = '<a href="#">Edit</a>';
+
+            myTable.appendChild(tr);
+         }
+        }
+
+
+        var theUrl = 'http://ubru.us-east-1.elasticbeanstalk.com/drinks/phone/' + this.$data.phoneNumber;
+        console.log("url: " + theUrl);
+
+        xmlHttp.open("GET", theUrl, false); // true for asynchronous
+        xmlHttp.send(null);
+
+
+    },
     sendNewBrew: function() {
       //alert("New brew!")
 
@@ -320,7 +231,7 @@ var app = new Vue({
       var time = document.getElementById('size').value;
       var type = null;
       var pressure = "80";
-      var phoneN = '911';
+      var phoneN = this.$data.phoneNumber;
 
       if(ES == true)
         type = 'ES';
