@@ -40,8 +40,8 @@ Vue.component('login-modal', {
     <section class="modal-card-body">
         <input id="phone-number" class="input is-rounded" type="text" placeholder="Phone number">
         </br></br>
-        <input class="input is-rounded" type="text" placeholder="Password">
-        </br>
+        <!--<input class="input is-rounded" type="text" placeholder="Password">
+         </br>-->
         <div class="submit-container">
         <label><input type="checkbox" checked="checked"> keep me signed in</label>
         </div>
@@ -71,8 +71,8 @@ Vue.component('signup-modal', {
     <section class="modal-card-body">
         <input class="input is-rounded" type="text" placeholder="Phone number">
         </br></br>
-        <input class="input is-rounded" type="text" placeholder="Password">
-        </br>
+        <!--<input class="input is-rounded" type="text" placeholder="Password">
+         </br>-->
     </section>
     <footer class="modal-card-foot">
       <button class="button is-success" @click="phoneNumber = $emit('login')">Sign Up</button>
@@ -180,37 +180,40 @@ var app = new Vue({
     },
     populateTable: function(){
         var xmlHttp = new XMLHttpRequest();
-        console.log('xmlHttp!!!!: ');
         console.log(xmlHttp);
-        console.log(xmlHttp.readyState + ', '+ xmlHttp.status);
         console.log(xmlHttp.responseText);
 
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-          console.log('IN THE IF!!!');
-          var brews = JSON.parse(xmlHttp.responseText);
-          console.log('BREWs: ' + brews);
-          console.log(brews.length);
+        xmlHttp.onreadystatechange = function() {
 
-          var myTable = document.getElementById('brewList');
+          if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            //console.log('IN THE IF!!!');
+            var brews = JSON.parse(xmlHttp.responseText);
 
-          for (i = 0; i < brews.length; i++) {
-            var tr = document.createElement('TR');
-            var x = tr.insertCell(0);
-            x = tr.insertCell(1);
-            x = tr.insertCell(2);
-            x = tr.insertCell(3);
-            x = tr.insertCell(4);
-            x = tr.insertCell(5);
+            var myTable = document.getElementById('brewList');
 
-            tr.cells[0].innerHTML = brews[i]['name'];
-            tr.cells[1].innerHTML = brews[i]['brew_temp'];
-            tr.cells[2].innerHTML = brews[i]['brew_size'];
-            tr.cells[3].innerHTML = brews[i]['brew_type'];
-            tr.cells[4].innerHTML = '<a href="#">Edit</a>';
+            var new_tbody = document.createElement('tbody');
+            new_tbody.setAttribute("id", "brewList");
+            myTable.parentNode.replaceChild(new_tbody, myTable);
 
-            myTable.appendChild(tr);
+            for (i = 0; i < brews.length; i++) {
+              var tr = document.createElement('TR');
+              var x = tr.insertCell(0);
+              x = tr.insertCell(1);
+              x = tr.insertCell(2);
+              x = tr.insertCell(3);
+              x = tr.insertCell(4);
+              x = tr.insertCell(5);
+
+              tr.cells[0].innerHTML = brews[i]['name'];
+              tr.cells[1].innerHTML = brews[i]['brew_temp'];
+              tr.cells[2].innerHTML = brews[i]['brew_size'];
+              tr.cells[3].innerHTML = brews[i]['brew_type'];
+              tr.cells[4].innerHTML = '<a href="#">Edit</a>';
+
+              new_tbody.appendChild(tr);
+           }
          }
-        }
+       }
 
 
         var theUrl = 'http://ubru.us-east-1.elasticbeanstalk.com/drinks/phone/' + this.$data.phoneNumber;
@@ -228,7 +231,7 @@ var app = new Vue({
       var AM = document.getElementById('AM').checked;
       var name = document.getElementById('drinkname').value;
       var temp = document.getElementById('temperature').value;
-      var time = document.getElementById('size').value;
+      var size = document.getElementById('size').value;
       var type = null;
       var pressure = "80";
       var phoneN = this.$data.phoneNumber;

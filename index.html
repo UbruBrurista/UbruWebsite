@@ -26,7 +26,7 @@
 
      <login-modal name="Log In" v-if="showModalLogin" @close="showModalLogin = false" @login="loggedIn = true; showModalLogin = false"></login-modal>
 
-     <signup-modal name="Sign Up" v-if="showModalSignup" @close="showModalSignup = false" @login="loggedIn = true; showModalSignup = false"></signup-modal>
+     <!-- <signup-modal name="Sign Up" v-if="showModalSignup" @close="showModalSignup = false" @login="loggedIn = true; showModalSignup = false"></signup-modal> -->
 
      <newbrew-modal name="New Brew" v-if="showModalNewbrew" @close="showModalNewbrew = false" @create="showModalNewbrew = false"></newbrew-modal>
 
@@ -187,7 +187,7 @@
               <!-- <div class="columns"> -->
                   <a class="button is-large is-link" @click="showModalLogin = true"><div class="column">Log in</div></a>
                   <br></br>
-                  <a class="button is-large is-danger" @click="showModalSignup = true"><div class="column">Sign up</div></a>
+                  <!-- <a class="button is-large is-danger" @click="showModalSignup = true"><div class="column">Sign up</div></a> -->
               <!-- </div> -->
             </div>
           </div>
